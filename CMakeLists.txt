@@ -1,0 +1,75 @@
+cmake_minimum_required(VERSION 3.10)
+
+# set the project name and version
+project(can-sample LANGUAGES C)
+
+# add the executable
+add_executable(can-sample
+        src/main.c
+)
+
+target_include_directories(can-sample PUBLIC "hdr")
+
+message(STATUS "CMake version: ${CMAKE_VERSION}")
+
+include(CheckFunctionExists)
+include(CheckSymbolExists)
+include(GNUInstallDirs)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if(CMAKE_EXPORT_COMPILE_COMMANDS STREQUAL "")
+  set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "project default" FORCE)
+endif()
+
+# Add an option to enable treating warnings as errors
+option(ENABLE_WERROR "Treat all compiler warnings as errors" OFF)
+option(ENABLE_GPS "Enable GPS support" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+
+
+if(ENABLE_WERROR)
+  add_compile_options(-Werror)
+endif()
+
+add_definitions(-D_GNU_SOURCE)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-parentheses -Wsign-compare")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSO_RXQ_OVFL=40")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DPF_CAN=29")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DAF_CAN=PF_CAN")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DN_SLCAN=17")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSCM_TIMESTAMPING_OPT_STATS=54")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DCLOCK_TAI=11")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSO_TXTIME=61")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSCM_TXTIME=SO_TXTIME")
+
+include_directories(.)
+include_directories(./hdr)
+
+check_function_exists(fork HAVE_FORK)
+
+set(PROGRAMS_CANLIB
+  hdr
+)
+
+if(HAVE_FORK)
+  list(APPEND PROGRAMS_CANLIB canlogserver)
+endif()
+
+
+
+if(HAVE_FORK)
+  list(APPEND PROGRAMS bcmserver)
+  list(APPEND PROGRAMS isotpserver)
+endif()
+
+
+
+
+
+
+
