@@ -72,6 +72,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSO_TXTIME=61")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSCM_TXTIME=SO_TXTIME")
 
 set (CMAKE_C_LINKER_WRAPPER_FLAG "-Wl,")
+set (CMAKE_CXX_LINKER_WRAPPER_FLAG "-Wl,")
 
 include_directories(.)
 include_directories(./hdr)
