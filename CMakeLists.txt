@@ -26,10 +26,6 @@ add_executable(can-sample ${cansample_SRC})
 
 
 target_include_directories(can-sample PUBLIC "hdr")
-target_include_directories(can-sample PUBLIC "mcp251xfd")
-target_include_directories(can-sample PUBLIC "calc-bit-timing")
-target_include_directories(can-sample PUBLIC "hdr/can")
-
 
 message(STATUS "CMake version: ${CMAKE_VERSION}")
 
@@ -43,9 +39,8 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS STREQUAL "")
 endif()
 
 # Add an option to enable treating warnings as errors
-option(ENABLE_WERROR "Treat all compiler warnings as errors" OFF)
-option(ENABLE_GPS "Enable GPS support" OFF)
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+option(ENABLE_WERROR "Treat all compiler warnings as errors" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 
 if(ENABLE_WERROR)
@@ -76,6 +71,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCLOCK_TAI=11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSO_TXTIME=61")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSCM_TXTIME=SO_TXTIME")
 
+set (CMAKE_C_LINKER_WRAPPER_FLAG "-Wl,")
 
 include_directories(.)
 include_directories(./hdr)
