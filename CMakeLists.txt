@@ -1,20 +1,38 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name and version
-project(can-sample LANGUAGES C)
-
-# add the executable
-add_executable(can-sample
-        src/main.c
-)
-
-target_include_directories(can-sample PUBLIC "hdr")
-
-message(STATUS "CMake version: ${CMAKE_VERSION}")
+project(can-sample LANGUAGES C CXX VERSION 1.0)
 
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(GNUInstallDirs)
+
+
+# set the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKcd ..E_CXX_EXTENSIONS OFF)
+
+file(GLOB cansample_SRC
+     "src/*.c"
+     "src/*.cpp"
+     "mcp251xfd/*.c"
+     "calc-bit-timing/*.c"
+)
+
+# add the executable
+add_executable(can-sample ${cansample_SRC})
+
+
+
+target_include_directories(can-sample PUBLIC "hdr")
+target_include_directories(can-sample PUBLIC "mcp251xfd")
+target_include_directories(can-sample PUBLIC "calc-bit-timing")
+target_include_directories(can-sample PUBLIC "hdr/can")
+
+
+message(STATUS "CMake version: ${CMAKE_VERSION}")
+
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
@@ -47,29 +65,24 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DCLOCK_TAI=11")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSO_TXTIME=61")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSCM_TXTIME=SO_TXTIME")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-parentheses -Wsign-compare")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSO_RXQ_OVFL=40")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPF_CAN=29")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DAF_CAN=PF_CAN")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DN_SLCAN=17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSCM_TIMESTAMPING_OPT_STATS=54")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCLOCK_TAI=11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSO_TXTIME=61")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSCM_TXTIME=SO_TXTIME")
+
+
 include_directories(.)
 include_directories(./hdr)
 
-check_function_exists(fork HAVE_FORK)
 
 set(PROGRAMS_CANLIB
   hdr
 )
-
-if(HAVE_FORK)
-  list(APPEND PROGRAMS_CANLIB canlogserver)
-endif()
-
-
-
-if(HAVE_FORK)
-  list(APPEND PROGRAMS bcmserver)
-  list(APPEND PROGRAMS isotpserver)
-endif()
-
-
-
-
-
 
 
