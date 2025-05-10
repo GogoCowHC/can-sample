@@ -17,12 +17,9 @@ extern "C" {
 
 /* declare function here*/
 
-extern "C" {
-    int serialGetchar (const int fd);
-    int serialDataAvail (const int fd);
-    int serialOpen (const char *device, const int baud);}
 
 extern "C" {   
+    void readUart (void);
     void test (void);}
 #endif /* generic_hpp*/
 // This file is part of the C Generic Library.
