@@ -29,7 +29,7 @@ int readGps (void)
     while (i--)
     {
         gps_location(&coord);
-        std::cout << "GPS start \r\n";
+        
         std::cout <<"Latitude: "<<coord.latitude<<"Longitude: "<<coord.longitude<< "Altitude: "<< coord.altitude << "Speed: "<<coord.speed << "Course: " << coord.course << "\r\n";
     }
     gps_off();
@@ -47,7 +47,7 @@ int main(void)
     //     std::cout << "CAN Sockets Demo\r\n";    
     // }
     
-   
+    std::cout << "GPS start \r\n";
     readGps();
             
 
