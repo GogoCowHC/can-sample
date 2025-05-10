@@ -17,10 +17,6 @@
 
 #include "candemo.hpp"
 
-extern "C" {
-    #include <wiringPi.h>
-    #include <wiringSerial.h>
-    }
 
 
 // int readGps (void)
@@ -42,31 +38,7 @@ extern "C" {
 
 
 
-void readUart (void)
-{
-    // char buffer[256];
-    int fd;
-    char c;
 
-    // if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
-    //     fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno));
-    // }
-
-    while(1) {
-		if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
-			std::cout <<"Unable to open serial device: %s\n" << strerror (errno);
-            break;
-		}else{
-			do{
-				c = serialGetchar(fd);
-				std::cout <<c << std::endl;
-			}while(serialDataAvail(fd));
-		}
-	}
-
-
-    std::cout << "UART end \r\n";
-}
 int main(void)
 {
     // int i =100000;
