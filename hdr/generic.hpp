@@ -10,6 +10,9 @@
 
 
 
+#include <wiringPi.h>
+#include <wiringSerial.h>
+
 
 
 /* declare function here*/
@@ -17,10 +20,7 @@
 extern "C" {
     int serialGetchar (const int fd);
     int serialDataAvail (const int fd);
-    int serialOpen (const char *device, const int baud);
-   
-
-}
+    int serialOpen (const char *device, const int baud);}
 
 extern "C" {   
     void test (void);}
