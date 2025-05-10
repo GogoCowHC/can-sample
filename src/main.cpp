@@ -42,7 +42,6 @@
 void readUart (void)
 {
     char buffer[256];
-    int i = 100000;
     int fd;
     char c;
 
@@ -50,21 +49,19 @@ void readUart (void)
     //     fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno));
     // }
 
-    while (i--)
-    {
-        if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
-			fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+    while(1) {
+		if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
+			std::cout <<"Unable to open serial device: %s\n" << strerror (errno);
+            break;
 		}else{
 			do{
 				c = serialGetchar(fd);
-				printf("%c",c);
-				fflush (stdout);
+				std::cout <<c << std::endl;
 			}while(serialDataAvail(fd));
-        
-    }
+		}
+	}
 
-        std::cout << buffer << "\r\n";
-    }
+
     std::cout << "UART end \r\n";
 }
 int main(void)
