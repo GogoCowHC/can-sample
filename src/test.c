@@ -44,5 +44,5 @@ void readUart (void)
 
 
    printf("UART end \r\n");
-    return 0;
+    return ;
 }
