@@ -16,7 +16,6 @@
 
 
 
-
 extern "C" {   
     void test (void);}
 #endif /* generic_hpp*/
