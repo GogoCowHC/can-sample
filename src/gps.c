@@ -7,16 +7,19 @@
 #include "nmea.h"
 #include "serial.h"
 
-void gps_init(void) {
+extern void gps_init(void) {
     serial_init();
     serial_config();
 
     //Write commands
 }
 
+extern void gps_on(void) {
+    //Write on
+}
 
 // Compute the GPS location using decimal scale
-void gps_location(loc_t *coord) {
+extern void gps_location(loc_t *coord) {
     uint8_t status = _EMPTY;
     while(status != _COMPLETED) {
         gpgga_t gpgga;
@@ -48,7 +51,7 @@ void gps_location(loc_t *coord) {
     }
 }
 
-void gps_off(void) {
+extern void gps_off(void) {
     //Write off
     serial_close();
 }

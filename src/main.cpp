@@ -17,26 +17,58 @@
 
 #include "candemo.hpp"
 
-#include "gps.h"
+#include <wiringPi.h>
+#include <wiringSerial.h>
 
+// int readGps (void)
+// {
+//     loc_t coord;
+//     int i =100000;
 
-int readGps (void)
-{
-    loc_t coord;
-    int i =100000;
-
-    gps_init();
-    while (i--)
-    {
-        gps_location(&coord);
+//     gps_init();
+//     while (i--)
+//     {
+//         gps_location(&coord);
         
-        std::cout <<"Latitude: "<<coord.latitude<<"Longitude: "<<coord.longitude<< "Altitude: "<< coord.altitude << "Speed: "<<coord.speed << "Course: " << coord.course << "\r\n";
-    }
-    gps_off();
-    std::cout << "GPS end \r\n";
-    return 0;
+//         std::cout <<"Latitude: "<<coord.latitude<<"Longitude: "<<coord.longitude<< "Altitude: "<< coord.altitude << "Speed: "<<coord.speed << "Course: " << coord.course << "\r\n";
+//     }
+//     gps_off();
+//     std::cout << "GPS end \r\n";
+//     return 0;
+// }
+
+void setupUart() {
+	Serial.begin(9600);     // opens serial port, baudrate : 9600 bps
 }
 
+void readuart (void)
+{
+    char buffer[256];
+    int i = 100000;
+    int fd;
+
+    setupUart();
+    if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
+        fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno));
+    }
+
+    while (i--)
+    {
+        if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
+			fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+		}else{
+			do{
+				c = serialGetchar(fd);
+				printf("%c",c);
+				fflush (stdout);
+			}while(serialDataAvail(fd));
+        
+    }
+
+        std::cout << buffer << "\r\n";
+    }
+    std::cout << "UART end \r\n";
+}
 int main(void)
 {
     // int i =100000;
@@ -48,7 +80,7 @@ int main(void)
     // }
     
     std::cout << "GPS start \r\n";
-    readGps();
+    readuart();
             
 
     std::cout << std::endl << " This is end of code test!! \r\r " << std::endl;
