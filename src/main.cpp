@@ -23,19 +23,23 @@
 int readGps (void)
 {
     loc_t coord;
+    int i =100000;
+
     gps_init();
-    gps_location(&coord);
+    while (i--)
+    {
+        gps_location(&coord);
+        std::cout << "GPS start \r\n";
+        std::cout <<"Latitude: "<<coord.latitude<<"Longitude: "<<coord.longitude<< "Altitude: "<< coord.altitude << "Speed: "<<coord.speed << "Course: " << coord.course << "\r\n";
+    }
     gps_off();
-
-    printf("Latitude: %f, Longitude: %f, Altitude: %f, Speed: %f, Course: %f\n",
-           coord.latitude, coord.longitude, coord.altitude, coord.speed, coord.course);
-
+    std::cout << "GPS end \r\n";
     return 0;
 }
 
 int main(void)
 {
-    int i =100000;
+    // int i =100000;
     // demo_can_sent(0x123, 8, "12345678");
     // while (i--)
     // {
@@ -43,11 +47,10 @@ int main(void)
     //     std::cout << "CAN Sockets Demo\r\n";    
     // }
     
-    while (i--)
-    {
-        readGps();
-        std::cout << "GPS Demo\r\n";    
-    }
+   
+    readGps();
+            
+
     std::cout << std::endl << " This is end of code test!! \r\r " << std::endl;
 	return 0;
 }
