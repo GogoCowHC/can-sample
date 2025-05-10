@@ -30,7 +30,7 @@ void readUart (void)
     printf("Raspberry's receiving : \n");
     
     while(i--) {
-        if((fd = serialOpen ("/dev/ttyS0", 9600)) < 0 ){
+        if((fd = serialOpen ("/dev/serial0", 9600)) < 0 ){
             printf( "Unable to open serial device: \n");
         }else{
             do{
