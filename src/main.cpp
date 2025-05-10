@@ -39,13 +39,12 @@
 
 
 
-void readuart (void)
+void readUart (void)
 {
     char buffer[256];
     int i = 100000;
     int fd;
 
-    setupUart();
     if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
         fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno));
     }
