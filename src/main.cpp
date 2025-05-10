@@ -41,7 +41,7 @@
 
 void readUart (void)
 {
-    char buffer[256];
+    // char buffer[256];
     int fd;
     char c;
 
