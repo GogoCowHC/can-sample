@@ -24,13 +24,13 @@ void test (void){
 void readUart (void)
 {
     
- 
+ int i =20;
     int fd;
     char c;
     printf("Raspberry's receiving : \n");
     
-    while(1) {
-        if((fd = serialOpen ("/dev/serial0", 9600)) < 0 ){
+    while(i--) {
+        if((fd = serialOpen ("/dev/ttyS0", 9600)) < 0 ){
             printf( "Unable to open serial device: \n");
         }else{
             do{
