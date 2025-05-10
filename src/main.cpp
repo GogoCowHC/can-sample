@@ -77,7 +77,7 @@ int main(void)
     // }
     
     std::cout << "GPS start \r\n";
-    readuart();
+    readUart();
             
 
     std::cout << std::endl << " This is end of code test!! \r\r " << std::endl;
