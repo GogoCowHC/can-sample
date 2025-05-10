@@ -37,9 +37,7 @@
 //     return 0;
 // }
 
-void setupUart() {
-	Serial.begin(9600);     // opens serial port, baudrate : 9600 bps
-}
+
 
 void readuart (void)
 {
