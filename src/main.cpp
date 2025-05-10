@@ -17,8 +17,11 @@
 
 #include "candemo.hpp"
 
-#include <wiringPi.h>
-#include <wiringSerial.h>
+extern "C" {
+    #include <wiringPi.h>
+    #include <wiringSerial.h>
+    }
+
 
 // int readGps (void)
 // {
