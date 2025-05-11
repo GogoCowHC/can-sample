@@ -28,22 +28,7 @@ using namespace std;
 string canData;
 string gpsData;
 
-// int readGps (void)
-// {
-//     loc_t coord;
-//     int i =100000;
 
-//     gps_init();
-//     while (i--)
-//     {
-//         gps_location(&coord);
-        
-//         std::cout <<"Latitude: "<<coord.latitude<<"Longitude: "<<coord.longitude<< "Altitude: "<< coord.altitude << "Speed: "<<coord.speed << "Course: " << coord.course << "\r\n";
-//     }
-//     gps_off();
-//     std::cout << "GPS end \r\n";
-//     return 0;
-// }
 void  
 getCANData(string &canData)
 {
@@ -52,6 +37,7 @@ getCANData(string &canData)
     ifreq ifr;
     can_frame frame;
 
+    cout << "CAN Sockets Demo\r\n";
     if ((s = socket(PF_CAN, SOCK_RAW, CAN_RAW)) < 0) {
         perror("Socket");
         return;
@@ -92,7 +78,7 @@ void writeToFile(void) {
 
     // std::ios::sync_with_stdio(false);
     string file = "test/log.txt";
-
+    cout << "Writing to file: " << file << std::endl;
 
     while (1)
     {
@@ -104,11 +90,12 @@ void writeToFile(void) {
         getCANData(canData);       
         MyFile << canData;
 
-        getGPSData(&gpsData[0]);
+        getdemoGPSData(&gpsData[0]);
         MyFile << gpsData;
         
         // Close the file
         MyFile.close();
+        cout << "Close File: " << file << std::endl;
     }
     
 

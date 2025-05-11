@@ -22,13 +22,12 @@ void test (void){
 }
 
 
-void getGPSData(char greetings[])
+void getdemoGPSData(char gpsData[])
 {
     int fd;
     char c;
     unsigned int index = 0;
-    char gpsData[256] = ""; // Declare a buffer for GPS data
-      
+    printf("Raspberry's receiving : \n");      
     if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
         snprintf(gpsData, sizeof(gpsData), "Unable to open serial device!! \n");
         
