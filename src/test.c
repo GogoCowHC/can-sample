@@ -24,18 +24,17 @@ void test (void){
 void readUart (void)
 {
     
- int i =20;
     int fd;
     char c;
     printf("Raspberry's receiving : \n");
     
-    while(i--) {
+    while(1) {
         if((fd = serialOpen ("/dev/serial0", 9600)) < 0 ){
             printf( "Unable to open serial device: \n");
         }else{
             do{
                 c = serialGetchar(fd);
-                printf(" %c",c);
+                printf("%c",c);
             }while(serialDataAvail(fd));
         }
     }
