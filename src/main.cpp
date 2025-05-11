@@ -78,8 +78,8 @@ void writeToFile(void) {
     // std::ios::sync_with_stdio(false);
     string file = "test/log.txt";
     cout << "Writing to file: " << file << std::endl;
-
-    while (1)
+int i = 20;
+    while (i--)
     {
         ofstream MyFile(file);
         if (!MyFile.is_open()) {
