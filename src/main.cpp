@@ -88,10 +88,11 @@ void writeToFile(void) {
         }
         getdemoCANData(canData);       
         MyFile << canData;
-
-        getdemoGPSData(&gpsData[0]);
-        MyFile << gpsData;
+        cout << canData;
         
+        // getdemoGPSData(&gpsData[0]);
+        // MyFile << gpsData;
+        // cout << gpsData;
         // Close the file
         MyFile.close();
         cout << "Close File: " << file << std::endl;
