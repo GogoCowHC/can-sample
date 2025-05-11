@@ -95,9 +95,9 @@ void writeToFile(void) {
         MyFile << canData;
         cout << canData;
         
-        getdemoGPSData(&gpsData[0]);
-        MyFile << gpsData;
-        cout << gpsData;
+        // getdemoGPSData(&gpsData[0]);
+        // MyFile << gpsData;
+        // cout << gpsData;
         // Close the file
         
     }
