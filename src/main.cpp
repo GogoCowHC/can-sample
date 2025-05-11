@@ -76,16 +76,21 @@ void getdemoCANData(string &canData)
 void writeToFile(void) {
 
     // std::ios::sync_with_stdio(false);
+    int i = 20;
+
     string file = "test/log.txt";
     cout << "Writing to file: " << file << std::endl;
-int i = 20;
+    
+    ofstream MyFile(file);
+
+    if (!MyFile.is_open()) {
+        std::cerr << "Error opening file: " << file << std::endl;
+        return;
+    }
+
     while (i--)
     {
-        ofstream MyFile(file);
-        if (!MyFile.is_open()) {
-            std::cerr << "Error opening file: " << file << std::endl;
-            return;
-        }
+
         getdemoCANData(canData);       
         MyFile << canData;
         cout << canData;
