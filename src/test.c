@@ -29,8 +29,9 @@ void readUart (void)
     printf("Raspberry's receiving : \n");
     
     while(1) {
-        if((fd = serialOpen ("/dev/serial0", 9600)) < 0 ){
+        if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
             printf( "Unable to open serial device: \n");
+            serialClose(fd);
         }else{
             do{
                 c = serialGetchar(fd);
@@ -164,3 +165,8 @@ int serialOpen (const char *device, const int baud)
  
    return ((int)x) & 0xFF ;
  }
+
+ void serialClose (const int fd)
+{
+  close (fd) ;
+}
