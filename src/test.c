@@ -35,6 +35,7 @@ void getdemoGPSData(char gpsData[])
     }else{
         do{
             c = serialGetchar(fd);
+            printf("%c",c);
             if (c != '\n' ) {
                 gpsData[index++] = c;
             }
