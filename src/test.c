@@ -26,7 +26,7 @@ void getGPSData(char greetings[])
 {
     int fd;
     char c;
-    int index = 0;
+    unsigned int index = 0;
     char gpsData[256] = ""; // Declare a buffer for GPS data
       
     if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
