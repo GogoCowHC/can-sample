@@ -65,3 +65,5 @@ compile_commands.json
 tags
 /build
 /can-sample
+/test
+log.txt

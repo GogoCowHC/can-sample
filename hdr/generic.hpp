@@ -19,7 +19,10 @@ extern "C" {
 
 
 extern "C" {   
+    void getGPSData(char* gpsData);
     void readUart (void);
     void test (void);}
+
+
 #endif /* generic_hpp*/
 // This file is part of the C Generic Library.

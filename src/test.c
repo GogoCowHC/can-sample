@@ -21,6 +21,27 @@ void test (void){
     printf("This is a test of the print_dummy function. \r\n");
 }
 
+
+void getGPSData(char* gpsData)
+{
+    int fd;
+    char c;
+      
+    if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
+        *gpsData = "Unable to open serial device!! \n";
+        
+    }else{
+        do{
+            c = serialGetchar(fd);
+            gpsData += to_string(c);
+        }while(serialDataAvail(fd));
+        serialClose(fd);
+    }
+    
+ return;
+}
+
+
 void readUart (void)
 {
     
@@ -42,8 +63,6 @@ void readUart (void)
     }
 
     
-
-
    printf("UART end \r\n");
     return ;
 }
@@ -171,3 +190,4 @@ int serialOpen (const char *device, const int baud)
 {
   close (fd) ;
 }
+
