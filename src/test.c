@@ -31,12 +31,13 @@ void readUart (void)
     while(1) {
         if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
             printf( "Unable to open serial device: \n");
-            serialClose(fd);
+            
         }else{
             do{
                 c = serialGetchar(fd);
                 printf("%c",c);
             }while(serialDataAvail(fd));
+            serialClose(fd);
         }
     }
 
