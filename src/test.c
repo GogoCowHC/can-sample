@@ -26,13 +26,13 @@ void getGPSData(char greetings[])
 {
     int fd;
     char c;
+    int index = 0;
     char gpsData[256] = ""; // Declare a buffer for GPS data
       
     if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
         snprintf(gpsData, sizeof(gpsData), "Unable to open serial device!! \n");
         
     }else{
-        int index = 0;
         do{
             c = serialGetchar(fd);
             if (index < sizeof(gpsData) - 1) {
