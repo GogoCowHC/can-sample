@@ -100,7 +100,7 @@ void writeToFile(void) {
         getCANData(canData);       
         MyFile << canData;
 
-        getGPSData(gpsData);
+        getGPSData((char*)gpsData);
         MyFile << gpsData;
     }
     
