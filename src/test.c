@@ -29,7 +29,7 @@ void getdemoGPSData(char gpsData[])
     unsigned int index = 0;
     printf("Rpi is receiving : \n");      
     if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
-        snprintf(gpsData, sizeof(gpsData), "Unable to open serial device!! \n");
+        snprintf(gpsData, 30, "Unable to open serial device!! \n");
         printf( "Unable to open serial device: \n");
         
     }else{
