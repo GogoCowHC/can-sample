@@ -27,14 +27,14 @@ void getdemoGPSData(char gpsData[])
     int fd;
     char c;
     unsigned int index = 0;
-    printf("Raspberry's receiving : \n");      
+    printf("Rpi is receiving : \n");      
     if((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0 ){
         snprintf(gpsData, sizeof(gpsData), "Unable to open serial device!! \n");
         
     }else{
         do{
             c = serialGetchar(fd);
-            if (index < sizeof(gpsData) - 1) {
+            if (c != '\n' ) {
                 gpsData[index++] = c;
             }
         }while(serialDataAvail(fd));
