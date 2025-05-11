@@ -29,8 +29,7 @@ string canData;
 string gpsData;
 
 
-void  
-getCANData(string &canData)
+void getdemoCANData(string &canData)
 {
     int s; 
     sockaddr_can addr;
@@ -87,7 +86,7 @@ void writeToFile(void) {
             std::cerr << "Error opening file: " << file << std::endl;
             return;
         }
-        getCANData(canData);       
+        getdemoCANData(canData);       
         MyFile << canData;
 
         getdemoGPSData(&gpsData[0]);

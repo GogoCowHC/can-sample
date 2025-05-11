@@ -47,7 +47,7 @@ void getdemoGPSData(char gpsData[])
 }
 
 
-void readUart (void)
+void readdemoUart (void)
 {
     
     int fd;
