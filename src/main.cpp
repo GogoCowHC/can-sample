@@ -93,20 +93,26 @@ void writeToFile(void) {
     // std::ios::sync_with_stdio(false);
     string file = "test/log.txt";
 
-    ofstream MyFile(file);
 
     while (1)
     {
+        ofstream MyFile(file);
+        if (!MyFile.is_open()) {
+            std::cerr << "Error opening file: " << file << std::endl;
+            return;
+        }
         getCANData(canData);       
         MyFile << canData;
 
-        // getGPSData(&gpsData[0]);
-        // MyFile << gpsData;
+        getGPSData(&gpsData[0]);
+        MyFile << gpsData;
+        
+        // Close the file
+        MyFile.close();
     }
     
 
-    // Close the file
-    MyFile.close();
+
 
     return;
 }
