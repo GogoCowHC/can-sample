@@ -90,17 +90,15 @@ int i = 20;
         MyFile << canData;
         cout << canData;
         
-        // getdemoGPSData(&gpsData[0]);
-        // MyFile << gpsData;
-        // cout << gpsData;
+        getdemoGPSData(&gpsData[0]);
+        MyFile << gpsData;
+        cout << gpsData;
         // Close the file
-        MyFile.close();
-        cout << "Close File: " << file << std::endl;
+        
     }
     
-
-
-
+    MyFile.close();
+    cout << "Close File: " << file << std::endl;
     return;
 }
 
