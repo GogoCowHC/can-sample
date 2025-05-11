@@ -22,7 +22,7 @@ void test (void){
 }
 
 
-void getGPSData(char* gpsData)
+void getGPSData(char greetings[])
 {
     int fd;
     char c;

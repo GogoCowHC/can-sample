@@ -19,7 +19,7 @@ extern "C" {
 
 
 extern "C" {   
-    void getGPSData(char* gpsData);
+    void getGPSData(char greetings[]);
     void readUart (void);
     void test (void);}
 
