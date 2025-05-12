@@ -56,6 +56,63 @@ int demo_can_sent(int can_id, int can_dlc, const char* can_data)
     return 0;
 }
 
+int demo_can_recvWithTimestamp(void)
+{
+    int s;
+    sockaddr_can addr;
+    ifreq ifr;
+    can_frame frame;
+    msghdr msg;
+    iovec iov;
+    char ctrlmsg[CMSG_SPACE(sizeof(struct timeval))];
+
+    // Open CAN socket
+    s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    if (s < 0) {
+        perror("Socket");
+        return 1;
+    }
+
+    // Specify CAN interface
+    strcpy(ifr.ifr_name, "can0");
+    ioctl(s, SIOCGIFINDEX, &ifr);
+
+    addr.can_family = AF_CAN;
+    addr.can_ifindex = ifr.ifr_ifindex;
+
+    // Bind socket
+    if (bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        perror("Bind");
+        return 1;
+    }
+
+    // Prepare message structure
+    iov.iov_base = &frame;
+    iov.iov_len = sizeof(frame);
+    msg.msg_name = &addr;
+    msg.msg_namelen = sizeof(addr);
+    msg.msg_iov = &iov;
+    msg.msg_iovlen = 1;
+    msg.msg_control = ctrlmsg;
+    msg.msg_controllen = sizeof(ctrlmsg);
+
+    // Receive CAN frame
+    if (recvmsg(s, &msg, 0) < 0) {
+        perror("recvmsg");
+        return 1;
+    }
+
+    // Extract timestamp
+    struct timeval tv;
+    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
+    if (cmsg && cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SO_TIMESTAMP) {
+        memcpy(&tv, CMSG_DATA(cmsg), sizeof(tv));
+        printf("Timestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
+    }
+
+    printf("Received CAN ID: %X, DLC: %d\n", frame.can_id, frame.can_dlc);
+    close(s);
+}
 
 int demo_can_recv(void)
 {

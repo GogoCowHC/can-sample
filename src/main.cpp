@@ -120,7 +120,13 @@ int main(void)
     
     //std::cout << "GPS start \r\n";
    // readUart();
-   writeToFile();
+//    writeToFile();
+
+    while (1)
+    {
+        demo_can_recvWithTimestamp();
+    }
+    
 
     std::cout << std::endl << " This is end of code test!! \r\r " << std::endl;
 	return 0;
