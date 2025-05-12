@@ -12,6 +12,9 @@
 #include <linux/can/raw.h>
 
 #include "candemo.hpp"
+#include <iostream>
+
+using namespace std;
 
 int demo_can_sent(int can_id, int can_dlc, const char* can_data)
 {
@@ -56,6 +59,16 @@ int demo_can_sent(int can_id, int can_dlc, const char* can_data)
     return 0;
 }
 
+    // Note: The timestamp is in seconds and microseconds since the epoch.
+    // You can format it as needed.
+    // For example, you can convert it to a human-readable format using strftime.
+    // You can also use the timestamp to calculate the time difference between frames.
+    // This is just a basic example to show how to receive CAN frames with timestamps.
+    // You can extend this code to handle multiple frames, filter frames, etc.
+    // Make sure to handle errors and edge cases as needed.
+    // Also, remember to close the socket when done.
+    // This code is just a starting point and may need to be adapted to your specific use case.
+    // You can also use the timestamp to synchronize with other events or systems.
 int demo_can_recvWithTimestamp(void)
 {
     int s;
@@ -83,7 +96,8 @@ int demo_can_recvWithTimestamp(void)
     // Bind socket
     if (bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
         perror("Bind");
-        return 1;
+        std::cout << "Error binding CAN socket" << std::endl;
+            
     }
 
     // Prepare message structure
@@ -99,7 +113,8 @@ int demo_can_recvWithTimestamp(void)
     // Receive CAN frame
     if (recvmsg(s, &msg, 0) < 0) {
         perror("recvmsg");
-        return 1;
+        std::cout << "Error receiving CAN frame" << std::endl;
+        
     }
 
     // Extract timestamp
@@ -112,6 +127,9 @@ int demo_can_recvWithTimestamp(void)
 
     printf("Received CAN ID: %X, DLC: %d\n", frame.can_id, frame.can_dlc);
     close(s);
+
+    return 0;
+
 }
 
 int demo_can_recv(void)
