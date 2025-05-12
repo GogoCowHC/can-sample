@@ -145,7 +145,7 @@ int demo_can_recvWithTimestamp(void)
         // printf("\nTimestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
     }
 
-    printf("Received CAN ID: %X, DLC: %d\n", frame.can_id, frame.can_dlc);
+    printf("Received CAN ID: %X, DLC: %d  :: ", frame.can_id, frame.can_dlc);
     for (int i = 0; i < frame.can_dlc; i++) {
         printf(" %02X", frame.data[i]);
     }
