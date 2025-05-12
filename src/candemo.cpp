@@ -25,7 +25,7 @@ void format_can_timestamp(struct timeval tv) {
     strftime(buffer, 20, "%H:%M:%S", tm_info);
 
     // Append milliseconds
-    printf("CAN Frame Timestamp: %s:%03ld\n", buffer, tv.tv_usec / 1000);
+    printf("\nCAN Frame Timestamp: %s:%03ld   ::   ", buffer, tv.tv_usec / 1000);
 }
 
 int demo_can_sent(int can_id, int can_dlc, const char* can_data)
