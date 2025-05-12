@@ -16,6 +16,18 @@
 
 using namespace std;
 
+void format_can_timestamp(struct timeval tv) {
+    struct tm *tm_info;
+    char buffer[20];
+
+    // Convert seconds to HH:MM:SS format
+    tm_info = localtime(&tv.tv_sec);
+    strftime(buffer, 20, "%H:%M:%S", tm_info);
+
+    // Append milliseconds
+    printf("CAN Frame Timestamp: %s:%03ld\n", buffer, tv.tv_usec / 1000);
+}
+
 int demo_can_sent(int can_id, int can_dlc, const char* can_data)
 {
     int s; 
@@ -127,10 +139,11 @@ int demo_can_recvWithTimestamp(void)
     // Extract timestamp
     timeval tv;
     struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    // if (cmsg && cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SO_TIMESTAMP) {
+    if (cmsg && cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SO_TIMESTAMP) {
         memcpy(&tv, CMSG_DATA(cmsg), sizeof(tv));
-        printf("\nTimestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
-    // }
+        format_can_timestamp(tv);
+        // printf("\nTimestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
+    }
 
     printf("Received CAN ID: %X, DLC: %d\n", frame.can_id, frame.can_dlc);
     for (int i = 0; i < frame.can_dlc; i++) {
