@@ -129,7 +129,7 @@ int demo_can_recvWithTimestamp(void)
     struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
     // if (cmsg && cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SO_TIMESTAMP) {
         memcpy(&tv, CMSG_DATA(cmsg), sizeof(tv));
-        printf("Timestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
+        printf("\nTimestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
     // }
 
     printf("Received CAN ID: %X, DLC: %d\n", frame.can_id, frame.can_dlc);
