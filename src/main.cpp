@@ -107,9 +107,24 @@ void writeToFile(void) {
     return;
 }
 
+void setup_can_interface(const char *interface, int bitrate) {
+    char command[100];
+
+    // Construct the command string
+    snprintf(command, sizeof(command), "ip link set %s up type can bitrate %d", interface, bitrate);
+
+    // Execute the command
+    int ret = system(command);
+    if (ret == -1) {
+        perror("Failed to execute command");
+    } else {
+        cout<<"CAN interface "<<interface<<" set up successfully with bitrate "<<bitrate<<endl;
+    }
+}
 
 int main(void)
 {
+    setup_can_interface("can0", 500000);
     // int i =100000;
     // demo_can_sent(0x123, 8, "12345678");
     // while (i--)

@@ -8,7 +8,7 @@
 #include <cstdbool>
 #include <cstdint>
 
-
+extern void format_can_timestamp(struct timeval tv);
 
 extern "C" {
     #include <wiringPi.h>

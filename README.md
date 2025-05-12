@@ -10,3 +10,9 @@
 > make
 
 > ./can-sample
+
+
+
+#Troubleshoot
+
+    
