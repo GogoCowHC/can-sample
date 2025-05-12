@@ -86,6 +86,13 @@ int demo_can_recvWithTimestamp(void)
         return 1;
     }
 
+    // Set socket options for timestamp
+    int timestamp_on = 1;
+    if (setsockopt(s, SOL_SOCKET, SO_TIMESTAMP, &timestamp_on, sizeof(timestamp_on)) < 0) {
+        perror("setsockopt");
+        std::cout << "Error setting socket options" << std::endl;
+        
+    }
     // Specify CAN interface
     strcpy(ifr.ifr_name, "can0");
     ioctl(s, SIOCGIFINDEX, &ifr);
