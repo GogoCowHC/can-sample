@@ -118,14 +118,17 @@ int demo_can_recvWithTimestamp(void)
     }
 
     // Extract timestamp
-    struct timeval tv;
+    timeval tv;
     struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    if (cmsg && cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SO_TIMESTAMP) {
+    // if (cmsg && cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SO_TIMESTAMP) {
         memcpy(&tv, CMSG_DATA(cmsg), sizeof(tv));
         printf("Timestamp: %ld.%06ld\n", tv.tv_sec, tv.tv_usec);
-    }
+    // }
 
     printf("Received CAN ID: %X, DLC: %d\n", frame.can_id, frame.can_dlc);
+    for (int i = 0; i < frame.can_dlc; i++) {
+        printf(" %02X", frame.data[i]);
+    }
     close(s);
 
     return 0;
