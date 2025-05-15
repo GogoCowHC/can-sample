@@ -52,12 +52,12 @@ int sub_demo_main()
     t_CAN.join();
     t_GPS.join();
 
-    while (recordMngr.isWritingFile())
-    {
-        cout << "Wait for writing file..." << endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-    cout << "Writing file done!" << endl;
+    // while (recordMngr.isWritingFile())
+    // {
+    //     cout << "Wait for writing file..." << endl;
+    //     std::this_thread::sleep_for(std::chrono::seconds(1));
+    // }
+    // cout << "Writing file done!" << endl;
 
     return 0;
 }
