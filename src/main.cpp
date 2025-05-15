@@ -45,9 +45,9 @@ int sub_demo_main()
     char gpsData[100];
     
     std::thread t_CAN(demo_can_recvWithTimestamp);
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(0));
     std::thread t_GPS(getdemoGPSData    , &gpsData[0]);
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(0));
 
     t_CAN.join();
     t_GPS.join();
