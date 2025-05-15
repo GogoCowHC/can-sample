@@ -81,7 +81,7 @@ int demo_can_sent(int can_id, int can_dlc, const char* can_data)
     // Also, remember to close the socket when done.
     // This code is just a starting point and may need to be adapted to your specific use case.
     // You can also use the timestamp to synchronize with other events or systems.
-int demo_can_recvWithTimestamp(msghdr*  msg)
+int demo_can_recvWithTimestamp(void)
 {
     int s;
     sockaddr_can addr;
