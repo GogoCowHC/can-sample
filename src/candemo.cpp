@@ -87,6 +87,7 @@ int demo_can_recvWithTimestamp(void)
     sockaddr_can addr;
     ifreq ifr;
     can_frame frame;
+    msghdr msg;
     iovec iov;
     char ctrlmsg[CMSG_SPACE(sizeof(struct timeval))];
 
