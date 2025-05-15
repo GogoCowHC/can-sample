@@ -176,8 +176,9 @@ int main(void)
     // }
     
 
+    while (1){
         sub_demo_main();
-
+    }
 
 
     std::cout << std::endl << " This is end of code test!! \r\r " << std::endl;
