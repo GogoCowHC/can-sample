@@ -3,6 +3,14 @@
 #include <fstream>
 
 
+#include <iomanip>
+#include <random>
+#include <thread>
+#include <chrono>
+
+#include "Utilities.h"
+#include "RecordMngr.h"
+#include "CANItem.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +28,10 @@
 #include <sys/stat.h>
 
 #include "candemo.hpp"
-
+#include "Config.h"
+#include "Utilities.h"
+#include "RecordMngr.h"
+#include "CANItem.h"
 
 using namespace std;
 
@@ -28,6 +39,28 @@ using namespace std;
 string canData;
 string gpsData;
 
+
+int sub_demo_main()
+{
+    char gpsData[100];
+    
+    std::thread t_CAN(demo_can_recvWithTimestamp);
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::thread t_GPS(getdemoGPSData    , &gpsData[0]);
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+    t_CAN.join();
+    t_GPS.join();
+
+    while (recordMngr.isWritingFile())
+    {
+        cout << "Wait for writing file..." << endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    cout << "Writing file done!" << endl;
+
+    return 0;
+}
 
 void getdemoCANData(string &canData)
 {
@@ -137,11 +170,15 @@ int main(void)
     // readdemoUart();
 //    writeToFile();
 
-    while (1)
-    {
-        demo_can_recvWithTimestamp();
-    }
+    // while (1)
+    // {
+    //     demo_can_recvWithTimestamp();
+    // }
     
+
+        sub_demo_main();
+
+
 
     std::cout << std::endl << " This is end of code test!! \r\r " << std::endl;
 	return 0;

@@ -10,11 +10,6 @@
 
 extern void format_can_timestamp(struct timeval tv);
 
-extern "C" {
-    #include <wiringPi.h>
-    #include <wiringSerial.h>
-    }
-
 /* declare function here*/
 
 

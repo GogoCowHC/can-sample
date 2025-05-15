@@ -16,8 +16,7 @@ set(CMAKcd ..E_CXX_EXTENSIONS OFF)
 file(GLOB cansample_SRC
      "src/*.c"
      "src/*.cpp"
-     "mcp251xfd/*.c"
-     "calc-bit-timing/*.c"
+
 )
 
 # add the executable
